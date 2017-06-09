@@ -10,7 +10,7 @@ LDFLAGS =
 # use this command to erase files.
 RM = /bin/rm -f
 # list of generated object files.
-OBJS = main.o create_dataset.o initialize_weights.o rescale_data.o
+OBJS = main.o createDataset.o initializeWeights.o rescaleData.o calcPredicted.o
 # program executable file name.
 PROG = ANN_test
 
@@ -22,18 +22,21 @@ $(PROG): $(OBJS)
 	$(LD) $(LDFLAGS) $(OBJS) -o $(PROG)
 
 # rule for file "main.o".
-main.o: main.c create_dataset.c create_dataset.h initialize_weights.c initialize_weights.h rescale_data.c rescale_data.h
+main.o: main.c createDataset.c createDataset.h initializeWeights.c initializeWeights.h rescaleData.c rescaleData.h calcPredicted.c calcPredicted.h
 	$(CC) $(CFLAGS) -c main.c
 
 # rule for file "file1.o".
-create_dataset.o: create_dataset.c create_dataset.h
-	$(CC) $(CFLAGS) -c create_dataset.c
+createDataset.o: createDataset.c createDataset.h
+	$(CC) $(CFLAGS) -c createDataset.c
 
-initialize_weights.o: initialize_weights.c initialize_weights.h
-	${CC} $(CFLAGS) -c initialize_weights.c
+initializeWeights.o: initializeWeights.c initializeWeights.h
+	${CC} $(CFLAGS) -c initializeWeights.c
 
-rescale_data.o: rescale_data.c rescale_data.h
-	${CC} $(CFLAGS) -c rescale_data.c
+rescaleData.o: rescaleData.c rescaleData.h
+	${CC} $(CFLAGS) -c rescaleData.c
+
+calcPredicted.o: calcPredicted.c calcPredicted.h
+	${CC} $(CFLAGS) -c calcPredicted.c
 
 # rule for cleaning re-compilable files.
 clean:

@@ -5,12 +5,13 @@
 // Created by: Chris Lorenz
 //
 // 03/02/2017: File created
+// 06/06/2017: Uniform data rescaling and uniform weight initialization added
 //
 //
-//
-#include "create_dataset.h"
-#include "initialize_weights.h"
-#include "rescale_data.h"
+#include "createDataset.h"
+#include "initializeWeights.h"
+#include "rescaleData.h"
+#include "calcPredicted.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -31,14 +32,14 @@ int main(int argc, char* argv[])
 		scaledData[i] = malloc(sizeof(double *)*dataSize);
 	}
 
-	create_dataset(dataSize, dataRows, inputData, bound);
+	createDataset(dataSize, dataRows, inputData, bound);
 
 	
 
 	//Read in input
 	
 	//Rescale Data
-	rescale_data(dataRows, dataSize, inputData, scaledData);
+	rescaleData(dataRows, dataSize, inputData, scaledData);
 	
 	for(int i = 0; i < dataRows; i++)
 	{
@@ -63,16 +64,24 @@ int main(int argc, char* argv[])
 		weights[i] = malloc(sizeof(double *)*nNodes[i]);
 		for(int j = 0; j < nNodes[i]; j++)
 		{
-			weights[i][j] = malloc(sizeof(double *)*nNodes[i+1]);
+			weights[i][j] = malloc(sizeof(double *)*nNodes[i+1]-1);
 		}
 	}
 
-	initialize_weights(numLayers, nNodes, type, weights);
+	initializeWeights(numLayers, nNodes, type, weights);
 	
 	
 	
 	//Calculate predicted values with forward propagation
-	
+	double **predictedOutputs = malloc(sizeof(double *)*numOutputs);
+	for(int i = 0; i < dataRows; i++)
+	{
+		predictedOutputs[i] = malloc(sizeof(double *)*dataRows);
+	}
+
+	calcPredicted(predictedOutputs, numLayers, nNodes, weights);
+
+
 	//Calculate Mean square error
 	
 	//Perform backpropagation to update values
