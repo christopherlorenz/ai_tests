@@ -10,7 +10,7 @@ LDFLAGS =
 # use this command to erase files.
 RM = /bin/rm -f
 # list of generated object files.
-OBJS = main.o create_dataset.o
+OBJS = main.o create_dataset.o initialize_weights.o rescale_data.o
 # program executable file name.
 PROG = ANN_test
 
@@ -22,13 +22,18 @@ $(PROG): $(OBJS)
 	$(LD) $(LDFLAGS) $(OBJS) -o $(PROG)
 
 # rule for file "main.o".
-main.o: main.c create_dataset.c create_dataset.h
+main.o: main.c create_dataset.c create_dataset.h initialize_weights.c initialize_weights.h rescale_data.c rescale_data.h
 	$(CC) $(CFLAGS) -c main.c
 
 # rule for file "file1.o".
 create_dataset.o: create_dataset.c create_dataset.h
 	$(CC) $(CFLAGS) -c create_dataset.c
 
+initialize_weights.o: initialize_weights.c initialize_weights.h
+	${CC} $(CFLAGS) -c initialize_weights.c
+
+rescale_data.o: rescale_data.c rescale_data.h
+	${CC} $(CFLAGS) -c rescale_data.c
 
 # rule for cleaning re-compilable files.
 clean:
