@@ -10,16 +10,16 @@
 #include "createDataset.h"
 #include <stdlib.h>
 
-void createDataset(int num_inputs, int dataset_size, double **data, int bound)
+void createDataset(int dataSize, int dataRows, double **inputData, double **outputData, int bound)
 {
-	srand(23);
 	
-	for(int i = 0; i < dataset_size; i++)
+	for(int i = 0; i < dataRows; i++)
 	{
-		for(int j = 0; j < num_inputs; j++)
+		for(int j = 0; j < dataSize; j++)
 		{
-			data[i][j] = 2*bound*((double)rand()/RAND_MAX-0.5);
+			inputData[i][j] = 2*bound*((double)rand()/RAND_MAX-0.5);
 		}
+		outputData[i][0] = inputData[i][0]*inputData[i][1];//inputData[i][0] + inputData[i][1]*inputData[i][1];
 	}
 }
 

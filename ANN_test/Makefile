@@ -6,7 +6,7 @@ LD = gcc
 CFLAGS = -g -Wall -std=c99
 # Linker flags go here. Currently there aren't any, but if we'll switch to
 # code optimization, we might add "-s" here to strip debug info and symbols.
-LDFLAGS =
+LDFLAGS = -lm
 # use this command to erase files.
 RM = /bin/rm -f
 # list of generated object files.
@@ -19,7 +19,7 @@ all: $(PROG)
 
 # rule to link the program
 $(PROG): $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS) -o $(PROG)
+	$(LD) $(OBJS) $(LDFLAGS) -o $(PROG)
 
 # rule for file "main.o".
 main.o: main.c createDataset.c createDataset.h initializeWeights.c initializeWeights.h rescaleData.c rescaleData.h calcPredicted.c calcPredicted.h backPropagation.c backPropagation.h
@@ -37,6 +37,7 @@ rescaleData.o: rescaleData.c rescaleData.h
 
 calcPredicted.o: calcPredicted.c calcPredicted.h
 	${CC} $(CFLAGS) -c calcPredicted.c
+
 
 backPropagation.o: backPropagation.c backPropagation.h
 	${CC} $(CFLAGS) -c backPropagation.c

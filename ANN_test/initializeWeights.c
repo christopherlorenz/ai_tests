@@ -20,6 +20,10 @@ void initializeWeights(int numLayers, int *nNodes, int type, double ***weights)
 				{
 					weights[i][j][k] = 2*bound*((double)rand()/RAND_MAX-0.5);
 				}
+				if(i == numLayers - 2)
+				{
+					weights[i][j][nNodes[i+1]-1] = 2*bound*((double)rand()/RAND_MAX-0.5);
+				}
 			}
 		}	
 	}
